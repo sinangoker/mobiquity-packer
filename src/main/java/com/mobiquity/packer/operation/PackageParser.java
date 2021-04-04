@@ -28,15 +28,31 @@ public class PackageParser {
      * @throws NumberFormatException the api exception
      */
     public static Package parse(String packageString) throws APIException, NumberFormatException {
-        String[] packageParts = packageString.strip().split(" : ");
+        String[] packageParts = packageString.strip().split(":");
         if (packageParts.length == 2) {
             return generatePackage(packageParts);
         }
         throw new APIException("Error while parsing package : packageParts");
     }
 
+    /**
+     * Generates result string from selected items.
+     *
+     * @param items the selected items
+     * @return the result string
+     */
+    public static String generateResultString(List<PackageItem> items) {
+        String result = "-";
+        if (!items.isEmpty()) {
+            result = items.stream().sorted(Comparator.comparingInt(PackageItem::getIndex))
+                    .map(PackageItem::getIndexText)
+                    .collect(Collectors.joining(","));
+        }
+        return result;
+    }
+
     private static Package generatePackage(String[] packageParts) throws APIException {
-        BigDecimal capacity = new BigDecimal(packageParts[0]);
+        BigDecimal capacity = new BigDecimal(packageParts[0].strip());
         List<PackageItem> packages = new ArrayList<>();
         String[] packageDetails = packageParts[1].strip().split(" ");
         PackageValidator.validatePackageDetails(packageDetails);
@@ -63,19 +79,4 @@ public class PackageParser {
         throw new APIException("Error while parsing package : packageDetail");
     }
 
-    /**
-     * Generates result string from selected items.
-     *
-     * @param items the selected items
-     * @return the result string
-     */
-    public static String generateResultString(List<PackageItem> items) {
-        String result = "-";
-        if (!items.isEmpty()) {
-            result = items.stream().sorted(Comparator.comparingInt(PackageItem::getIndex))
-                    .map(PackageItem::getIndexText)
-                    .collect(Collectors.joining(","));
-        }
-        return result;
-    }
 }

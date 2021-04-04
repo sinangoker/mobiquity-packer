@@ -37,15 +37,16 @@ public class PackageValidator {
         }
     }
 
+
     /**
-     * Validate input file content.
+     * Validate line from file.
      *
-     * @param lines the lines
-     * @throws APIException the api exception
+     * @param line the line
+     * @throws APIException the apı exception
      */
-    public static void validateInputFileContent(List<String> lines) throws APIException {
-        if (lines.isEmpty()) {
-            throw new APIException("Input file is empty");
+    public static void validateLine(String line) throws APIException {
+        if (line.isEmpty()) {
+            throw new APIException("Line of input file is empty");
         }
     }
 
