@@ -1,6 +1,6 @@
 # Mobiuqity Assignment : Package Challenge
 
-A packer implementation has been realised as a library project by using technologies below.
+A packer implementation has been performed as a library project using technologies below.
 
 ### Dependencies
 * Java 11
@@ -10,14 +10,14 @@ A packer implementation has been realised as a library project by using technolo
 
 ## About the Packer
 
-Packer library has a static API ```pack``` that takes ```filePath``` as absolute path of input file
+Packer library has a static API ```pack``` that takes absolute ```filePath``` as input parameter
 and returns ```output``` as a string.
 ```
 public static String pack(String filePath) throws APIException
 ```
 
 ### Solver Algorithm
-The dynamic programming solution is based on the recursive 0-1 Knapsack problem is applied to solve packer challange.
+A dynamic programming solution based on the recursive 0-1 Knapsack problem is applied to solve packer challange.
 ```
 https://en.wikipedia.org/wiki/Knapsack_problem#Dynamic_programming_in-advance_algorithm
 ```
@@ -57,8 +57,8 @@ Run m(n, W)
 
 ### Input File Format
 
-Each line contains the weight that the package can take (before the colon) and the list of items you need
-to choose. Each item is enclosed in parentheses where the 1st number is a item’s index number, the 2nd
+Each line contains the package capacity and the list of items to be put into the package.
+Each item is enclosed in parentheses where the 1st number is a item’s index number, the 2nd
 is its weight and the 3rd is its cost. E.g.
 
 ```
@@ -70,8 +70,7 @@ is its weight and the 3rd is its cost. E.g.
 
 ### Output Format
 
-For each set of items that you put into a package provide a new row in the output string (items’ index
-numbers are separated by comma). E.g.
+Each line represents the index number of item(s) to be put into package (comma-sperated). E.g.
 
 ```
 4
@@ -81,14 +80,13 @@ numbers are separated by comma). E.g.
 ```
 
 ### Exceptions
-```APIException``` with a detail message and stacktrace will be thrown when an error occured while parsing, formatting, io operations, etc.
+```APIException``` with a detail message and stacktrace will be thrown when an error occures while parsing, formatting, IO operations, etc.
 
 ### Constraints
-- The test file will be in UTF-8 format.
+- The test file is in UTF-8 format
 - Max weight that a package can take is ≤ 100
 - There might be up to 15 items you need to choose from
 - Max weight and cost of an item is ≤ 100
-
 
 
 ## How to Use
@@ -106,9 +104,9 @@ mvn clean install
 
 ### Library Jar 
 
-```mobiquity-packer-1.0.0.jar``` will be creted under target.
+```mobiquity-packer-1.0.0.jar``` will be created under target.
 
-You can import the library to classpath and use.
+You can import the library to classpath of your project and use.
 
 
 #### Questions and Comments:
