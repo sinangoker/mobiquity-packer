@@ -3,6 +3,7 @@ package com.mobiquity.packer.operation;
 import com.mobiquity.exception.APIException;
 import com.mobiquity.packer.model.Package;
 import com.mobiquity.packer.model.PackageItem;
+import com.mobiquity.packer.validation.PackageValidator;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class PackageParser {
         BigDecimal capacity = new BigDecimal(packageParts[0]);
         List<PackageItem> packages = new ArrayList<>();
         String[] packageDetails = packageParts[1].strip().split(" ");
+        PackageValidator.validatePackageDetails(packageDetails);
         for (String packageDetail : packageDetails) {
             packages.add(generatePackageItemByDetail(packageDetail));
         }
@@ -54,23 +56,11 @@ public class PackageParser {
             int index = Integer.parseInt(packageFields[0]);
             BigDecimal weight = new BigDecimal(packageFields[1]);
             BigDecimal cost = new BigDecimal(packageFields[2]);
-            validateWeight(weight);
-            validateCost(cost);
+            PackageValidator.validateWeight(weight);
+            PackageValidator.validateCost(cost);
             return new PackageItem(index, weight, cost);
         }
         throw new APIException("Error while parsing package : packageDetail");
-    }
-
-    private static void validateCost(BigDecimal cost) throws APIException {
-        if (cost.compareTo(BigDecimal.valueOf(100)) > 0) {
-            throw new APIException("Max cost of a package can be 100");
-        }
-    }
-
-    private static void validateWeight(BigDecimal weight) throws APIException {
-        if (weight.compareTo(BigDecimal.valueOf(100)) > 0) {
-            throw new APIException("Max weight of a package can be 100");
-        }
     }
 
     /**

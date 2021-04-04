@@ -5,10 +5,12 @@ import com.mobiquity.packer.model.Package;
 import com.mobiquity.packer.model.PackageResult;
 import com.mobiquity.packer.operation.PackageParser;
 import com.mobiquity.packer.operation.PackageSolver;
+import com.mobiquity.packer.validation.PackageValidator;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +37,9 @@ public class Packer {
             // read lines of given file in UTF-8 format
             List<String> lines = Files.readAllLines(Paths.get(filePath), StandardCharsets.UTF_8);
 
+            // validates content before parsing
+            PackageValidator.validateInputFileContent(lines);
+
             for (String line : lines) {
                 // parse given line of case
                 Package pack = PackageParser.parse(line);
@@ -47,6 +52,8 @@ public class Packer {
                 results.add(result);
             }
 
+        } catch (NoSuchFileException e) {
+            throw new APIException("Input file does not exist", e);
         } catch (IOException e) {
             throw new APIException("Error while reading input file", e);
         } catch (NumberFormatException e) {
@@ -54,4 +61,6 @@ public class Packer {
         }
         return String.join("\n", results);
     }
+
+
 }
