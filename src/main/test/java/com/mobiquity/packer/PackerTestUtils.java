@@ -67,8 +67,8 @@ public class PackerTestUtils {
      *
      * @param fileName the file name
      * @return the string
-     * @throws IOException        the io exception
      * @throws URISyntaxException the uri syntax exception
+     * @throws IOException        the io exception
      */
     public static String readFile(String fileName) throws URISyntaxException, IOException {
         return Files.readString(Paths.get(getResourcePath(fileName)), StandardCharsets.UTF_8);

@@ -29,33 +29,48 @@ public class PackageParser {
     public static Package parse(String packageString) throws APIException, NumberFormatException {
         String[] packageParts = packageString.strip().split(" : ");
         if (packageParts.length == 2) {
-            BigDecimal capacity = new BigDecimal(packageParts[0]);
-            List<PackageItem> packages = new ArrayList<>();
-            String[] packageDetails = packageParts[1].strip().split(" ");
-            for (String packageDetail : packageDetails) {
-
-                String[] packageFields = packageDetail.replace("(", "")
-                        .replace(")", "")
-                        .replace("€", "")
-                        .strip().split(",");
-
-                if (packageFields.length == 3) {
-                    int index = Integer.parseInt(packageFields[0]);
-                    BigDecimal weight = new BigDecimal(packageFields[1]);
-                    BigDecimal cost = new BigDecimal(packageFields[2]);
-
-                    if (weight.compareTo(BigDecimal.valueOf(100)) > 0) {
-                        throw new APIException("Max weight of a package can be 100");
-                    }
-                    if (cost.compareTo(BigDecimal.valueOf(100)) > 0) {
-                        throw new APIException("Max cost of a package can be 100");
-                    }
-                    packages.add(new PackageItem(index, weight, cost));
-                }
-            }
-            return new Package(capacity, packages);
+            return generatePackage(packageParts);
         }
-        throw new APIException("Error while parsing package");
+        throw new APIException("Error while parsing package : packageParts");
+    }
+
+    private static Package generatePackage(String[] packageParts) throws APIException {
+        BigDecimal capacity = new BigDecimal(packageParts[0]);
+        List<PackageItem> packages = new ArrayList<>();
+        String[] packageDetails = packageParts[1].strip().split(" ");
+        for (String packageDetail : packageDetails) {
+            packages.add(generatePackageItemByDetail(packageDetail));
+        }
+        return new Package(capacity, packages);
+    }
+
+    private static PackageItem generatePackageItemByDetail(String packageDetail) throws APIException {
+        String[] packageFields = packageDetail.replace("(", "")
+                .replace(")", "")
+                .replace("€", "")
+                .strip().split(",");
+
+        if (packageFields.length == 3) {
+            int index = Integer.parseInt(packageFields[0]);
+            BigDecimal weight = new BigDecimal(packageFields[1]);
+            BigDecimal cost = new BigDecimal(packageFields[2]);
+            validateWeight(weight);
+            validateCost(cost);
+            return new PackageItem(index, weight, cost);
+        }
+        throw new APIException("Error while parsing package : packageDetail");
+    }
+
+    private static void validateCost(BigDecimal cost) throws APIException {
+        if (cost.compareTo(BigDecimal.valueOf(100)) > 0) {
+            throw new APIException("Max cost of a package can be 100");
+        }
+    }
+
+    private static void validateWeight(BigDecimal weight) throws APIException {
+        if (weight.compareTo(BigDecimal.valueOf(100)) > 0) {
+            throw new APIException("Max weight of a package can be 100");
+        }
     }
 
     /**
