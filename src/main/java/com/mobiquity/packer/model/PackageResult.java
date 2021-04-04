@@ -1,6 +1,7 @@
 package com.mobiquity.packer.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,15 +11,15 @@ import java.util.List;
  */
 public class PackageResult implements Serializable {
 
-    private double score;
-    private final List<PackageItem> selectedItems;
+    private List<PackageItem> selectedItems;
+    private BigDecimal score;
 
     /**
      * Instantiates a new Package result.
      *
      * @param score the score
      */
-    public PackageResult(double score) {
+    public PackageResult(BigDecimal score) {
         this.score = score;
         this.selectedItems = new ArrayList<>();
     }
@@ -28,7 +29,7 @@ public class PackageResult implements Serializable {
      *
      * @return the score
      */
-    public double getScore() {
+    public BigDecimal getScore() {
         return score;
     }
 
@@ -57,8 +58,8 @@ public class PackageResult implements Serializable {
      *
      * @param cost the cost
      */
-    public void addCost(double cost) {
-        this.score += cost;
+    public void addCost(BigDecimal cost) {
+        score = new BigDecimal(score.toString()).add(cost);
     }
 
 }

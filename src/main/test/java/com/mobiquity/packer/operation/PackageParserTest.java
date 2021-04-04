@@ -5,6 +5,7 @@ import com.mobiquity.packer.model.Package;
 import com.mobiquity.packer.model.PackageItem;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ class PackageParserTest {
         try {
             Package pack = PackageParser.parse(packageString);
 
-            assertEquals(81, pack.getCapacity());
+            assertEquals(new BigDecimal(81), pack.getCapacity());
             assertNotNull(pack.getPackageItems());
             assertEquals(6, pack.getPackageItems().size());
         } catch (APIException e) {
@@ -38,9 +39,9 @@ class PackageParserTest {
     @Test
     void generateResultString() {
         List<PackageItem> packageItems = new ArrayList<>();
-        packageItems.add(new PackageItem(1, 10, 5));
-        packageItems.add(new PackageItem(2, 15, 8));
-        packageItems.add(new PackageItem(3, 12, 10));
+        packageItems.add(new PackageItem(1, new BigDecimal(10), new BigDecimal(5)));
+        packageItems.add(new PackageItem(2, new BigDecimal(15), new BigDecimal(8)));
+        packageItems.add(new PackageItem(3, new BigDecimal(12), new BigDecimal(10)));
         String result = PackageParser.generateResultString(packageItems);
         assertEquals("1,2,3", result);
     }

@@ -1,5 +1,6 @@
 package com.mobiquity.packer.model;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  */
 public final class Package {
 
-    private final double capacity;
+    private final BigDecimal capacity;
     private final List<PackageItem> packageItems;
 
     /**
@@ -17,7 +18,7 @@ public final class Package {
      * @param capacity the capacity
      * @param packages the package items
      */
-    public Package(double capacity, List<PackageItem> packages) {
+    public Package(BigDecimal capacity, List<PackageItem> packages) {
         this.capacity = capacity;
         this.packageItems = packages;
     }
@@ -27,7 +28,7 @@ public final class Package {
      *
      * @return the capacity
      */
-    public double getCapacity() {
+    public BigDecimal getCapacity() {
         return capacity;
     }
 

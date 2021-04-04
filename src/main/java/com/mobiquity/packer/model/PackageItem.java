@@ -1,6 +1,7 @@
 package com.mobiquity.packer.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * The PackageItem is the class comprises index
@@ -9,8 +10,8 @@ import java.io.Serializable;
 public final class PackageItem implements Serializable {
 
     private final int index;
-    private final double weight;
-    private final double cost;
+    private final BigDecimal weight;
+    private final BigDecimal cost;
 
     /**
      * Instantiates a new Package ıtem.
@@ -19,7 +20,7 @@ public final class PackageItem implements Serializable {
      * @param weight the weight
      * @param cost   the cost
      */
-    public PackageItem(int index, double weight, double cost) {
+    public PackageItem(int index, BigDecimal weight, BigDecimal cost) {
         this.index = index;
         this.weight = weight;
         this.cost = cost;
@@ -48,7 +49,7 @@ public final class PackageItem implements Serializable {
      *
      * @return the weight
      */
-    public double getWeight() {
+    public BigDecimal getWeight() {
         return weight;
     }
 
@@ -57,7 +58,7 @@ public final class PackageItem implements Serializable {
      *
      * @return the cost
      */
-    public double getCost() {
+    public BigDecimal getCost() {
         return cost;
     }
 
