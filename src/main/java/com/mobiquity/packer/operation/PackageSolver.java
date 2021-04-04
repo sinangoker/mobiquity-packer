@@ -29,8 +29,8 @@ public class PackageSolver {
      * @return the package result
      */
     public static PackageResult solve(Package pack) {
-        //sorted by weight
-        //prefer to send a package which weighs less in case there is more than one package with the same price.
+        // sorted by weight to prefer to send a package
+        // which weighs less in case there is more than one package with the same price.
         List<PackageItem> sortedItems = pack.getPackageItems().stream()
                 .sorted(Comparator.comparing(PackageItem::getWeight))
                 .collect(Collectors.toList());
@@ -60,7 +60,6 @@ public class PackageSolver {
             resultIncludingNth.addCost(packageItem.getCost());
 
             PackageResult resultWithoutNth = knapSack(capacity, packageItems, itemIndex);
-
 
             if (resultIncludingNth.getScore().compareTo(resultWithoutNth.getScore()) > 0
                     && resultIncludingNth.getSelectedItems().size() < 15) {

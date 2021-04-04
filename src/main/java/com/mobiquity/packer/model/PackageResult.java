@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class PackageResult implements Serializable {
 
-    private List<PackageItem> selectedItems;
+    private final List<PackageItem> selectedItems;
     private BigDecimal score;
 
     /**
