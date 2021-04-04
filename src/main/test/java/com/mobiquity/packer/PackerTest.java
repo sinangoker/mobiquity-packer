@@ -42,11 +42,12 @@ class PackerTest {
             String inputFilePath = PackerTestUtils.getAbsolutePath(PackerTestUtils.INPUT_FILE);
             String output = PackerTestUtils.readFile(PackerTestUtils.OUTPUT_FILE);
             String result = Packer.pack(inputFilePath);
+
             assertEquals(result, output);
+        } catch (APIException e) {
+            fail("API error : " + e.getMessage());
         } catch (URISyntaxException e) {
             fail("InputFile url is not valid, error while packing input or output file");
-        } catch (APIException e) {
-            fail("API error while packing input");
         } catch (IOException e) {
             fail("URISyntax error while reading output file");
         }
