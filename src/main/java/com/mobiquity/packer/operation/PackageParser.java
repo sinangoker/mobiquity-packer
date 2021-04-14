@@ -66,6 +66,7 @@ public class PackageParser {
         String[] packageFields = packageDetail.replace("(", "")
                 .replace(")", "")
                 .replace("€", "")
+                .replace("\u20ac", "") //for euro sign case
                 .strip().split(",");
 
         if (packageFields.length == 3) {
