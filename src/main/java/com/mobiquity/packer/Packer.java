@@ -5,6 +5,8 @@ import com.mobiquity.packer.model.Package;
 import com.mobiquity.packer.model.PackageResult;
 import com.mobiquity.packer.operation.PackageParser;
 import com.mobiquity.packer.operation.PackageSolver;
+import com.mobiquity.packer.operation.Parser;
+import com.mobiquity.packer.operation.Solver;
 import com.mobiquity.packer.validation.PackageValidator;
 
 import java.io.IOException;
@@ -64,10 +66,12 @@ public class Packer {
         PackageValidator.validateLine(line);
 
         // parse the given line of case
-        Package pack = PackageParser.parse(line);
+        Parser parser = new PackageParser();
+        Package pack = parser.parse(line);
 
         // solve package item selection
-        PackageResult packageResult = PackageSolver.solve(pack);
+        Solver solver = new PackageSolver();
+        PackageResult packageResult = solver.solve(pack);
 
         // generate results for the case
         results.add(PackageParser.generateResultString(packageResult.getSelectedItems()));

@@ -14,10 +14,7 @@ import java.util.stream.Collectors;
  * The Package solver that applies the recursive solution
  * and return solution as a PackageResult instance.
  */
-public class PackageSolver {
-
-    private PackageSolver() {
-    }
+public class PackageSolver implements Solver{
 
     /**
      * Solves package challenge and returns result.
@@ -28,7 +25,7 @@ public class PackageSolver {
      * @param pack the pack
      * @return the package result
      */
-    public static PackageResult solve(Package pack) {
+    public PackageResult solve(Package pack) {
         // sorted by weight to prefer to send a package
         // which weighs less in case there is more than one package with the same price.
         List<PackageItem> sortedItems = pack.getPackageItems().stream()
@@ -38,7 +35,7 @@ public class PackageSolver {
         return knapSack(pack.getCapacity(), sortedItems, sortedItems.size());
     }
 
-    private static PackageResult knapSack(BigDecimal capacity, List<PackageItem> packageItems, int packIndex) {
+    private PackageResult knapSack(BigDecimal capacity, List<PackageItem> packageItems, int packIndex) {
         if (packIndex == 0 || capacity.signum() == 0)
             return new PackageResult(new BigDecimal(0));
 

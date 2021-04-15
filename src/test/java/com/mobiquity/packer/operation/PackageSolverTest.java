@@ -30,7 +30,7 @@ class PackageSolverTest {
         packageItems.add(createPackageItem(5, 30.18, 9));
         packageItems.add(createPackageItem(6, 46.34, 48));
         Package pack = new Package(new BigDecimal(81), packageItems);
-        PackageResult result = PackageSolver.solve(pack);
+        PackageResult result = new PackageSolver().solve(pack);
 
         assertNotNull(result);
         assertNotNull(result.getSelectedItems());

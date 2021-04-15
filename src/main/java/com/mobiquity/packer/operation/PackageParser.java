@@ -14,10 +14,7 @@ import java.util.stream.Collectors;
 /**
  * The type Package parser.
  */
-public class PackageParser {
-
-    private PackageParser() {
-    }
+public class PackageParser implements Parser{
 
     /**
      * Parse given string and create Package item.
@@ -27,7 +24,7 @@ public class PackageParser {
      * @throws APIException          the api exception
      * @throws NumberFormatException the api exception
      */
-    public static Package parse(String packageString) throws APIException, NumberFormatException {
+    public Package parse(String packageString) throws APIException, NumberFormatException {
         String[] packageParts = packageString.strip().split(":");
         if (packageParts.length == 2) {
             return generatePackage(packageParts);
