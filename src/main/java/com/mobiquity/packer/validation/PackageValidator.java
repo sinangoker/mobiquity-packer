@@ -3,7 +3,6 @@ package com.mobiquity.packer.validation;
 import com.mobiquity.exception.APIException;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * Validation methods for Package content.

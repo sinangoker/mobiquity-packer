@@ -41,7 +41,9 @@ class PackerTest {
         try {
             String inputFilePath = PackerTestUtils.getAbsolutePath(PackerTestUtils.INPUT_FILE);
             String output = PackerTestUtils.readFile(PackerTestUtils.OUTPUT_FILE);
-            String result = Packer.pack(inputFilePath);
+
+            Packer packer = new MobiquityPacker();
+            String result = packer.pack(inputFilePath);
 
             assertEquals(result, output);
         } catch (APIException e) {
